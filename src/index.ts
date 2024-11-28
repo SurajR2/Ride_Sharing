@@ -11,6 +11,7 @@ configDotenv();
 import { connectDB } from "./db/connectDB";
 
 import authRoutes from "./routes/auth.routes";
+import ridesRoutes from "./routes/rides.routes";
 
 const port = process.env.port || 3000;
 
@@ -25,3 +26,4 @@ app.get("/", (req: Request, res: Response) => {
   res.send("The api is working properly ");
 });
 app.use("/api/auth", authRoutes);
+app.use("/api/rides", ridesRoutes);

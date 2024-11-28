@@ -10,6 +10,7 @@ const EnvSchema = z.object({
   NODE_ENV: z.string(),
 });
 
+/******Validating Enviroment Variables*******/
 export const env = EnvSchema.parse(process.env);
 
 export const signupSchema = z.object({
