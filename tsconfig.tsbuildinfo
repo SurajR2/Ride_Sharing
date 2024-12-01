@@ -1,1 +1,1 @@
-{"root":["./src/index.ts"],"version":"5.7.2"}
+{"root":["./src/index.ts","./src/controllers/auth.controller.ts","./src/controllers/ride.controller.ts","./src/db/connectDB.ts","./src/middlewares/auth.middleware.ts","./src/models/ride.model.ts","./src/models/user.model.ts","./src/routes/auth.routes.ts","./src/routes/rides.routes.ts","./src/utils/generateTokenAndSetCookie.ts","./src/zodScheme/zodSchema.ts"],"version":"5.7.2"}

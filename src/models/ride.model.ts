@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { v4 as uuidv4 } from "uuid";
 
 type Location = {
   lat: Number;
@@ -17,12 +16,6 @@ interface IRide extends Document {
 }
 
 const RideSchema = new Schema<IRide>({
-  rideId: {
-    type: String,
-    required: true,
-    unique: true,
-    default: () => uuidv4(),
-  },
   status: {
     type: String,
     enum: ["pending", "accepted", "rejected", "completed", "in-progress"],

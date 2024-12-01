@@ -28,8 +28,7 @@ export const signup = async (req: Request, res: Response) => {
     });
     await newUser.save();
 
-    generateTokenAndSetCookie(res, newUser._id);
-
+    generateTokenAndSetCookie(res, newUser._id as String);
     const { password: _, ...userWithoutPassword } = newUser.toObject();
 
     res.status(201).json({
@@ -62,7 +61,7 @@ export const login = async (req: Request, res: Response) => {
       res.status(401).json({ success: false, message: "Invalid Password" });
       return;
     }
-    generateTokenAndSetCookie(res, user._id);
+    generateTokenAndSetCookie(res, user._id as String);
     res.status(200).json({ success: true, message: "Logged in successfully" });
   } catch (error) {
     console.log(error);

@@ -23,3 +23,19 @@ export const loginSchema = z.object({
   username: z.string().min(3, "Username must be at least 3 characters long"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
+
+export const rideRequestSchema = z.object({
+  pickupLocation: z.object({ lat: z.number(), lon: z.number() }),
+  dropoffLocation: z.object({ lat: z.number(), lon: z.number() }),
+  rideType: z.enum(["economy", "luxury"]),
+});
+
+export const rideRequestStatusSchema = z.object({
+  status: z.enum([
+    "pending",
+    "accepted",
+    "rejected",
+    "complete",
+    "in-progress",
+  ]),
+});
