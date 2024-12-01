@@ -1,9 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-type Location = {
-  lat: Number;
-  lon: Number;
-};
+interface Location {
+  lat: number;
+  lon: number;
+}
 
 interface IRide extends Document {
   rideId: string;

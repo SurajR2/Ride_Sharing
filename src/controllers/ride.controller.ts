@@ -26,12 +26,6 @@ export const rideRequest = async (req: Request, res: Response) => {
       return;
     }
     const decoded = jwt.verify(token, env.JWT_SECRET) as DecodedToken;
-    if (!decoded) {
-      res
-        .status(401)
-        .json({ success: false, message: "unauthorized - invalid token" });
-      return;
-    }
     const userId = decoded.userId;
     const newRideRequest = new Ride({
       userId,

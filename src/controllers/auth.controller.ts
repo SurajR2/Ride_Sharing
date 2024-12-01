@@ -5,6 +5,12 @@ import { signupSchema, loginSchema } from "../zodScheme/zodSchema";
 import bcryptjs from "bcryptjs";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie";
 
+interface Authentication {
+  username: string;
+  password: string;
+  email: string;
+}
+
 /****************Signup Controller*****************/
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -28,7 +34,7 @@ export const signup = async (req: Request, res: Response) => {
     });
     await newUser.save();
 
-    generateTokenAndSetCookie(res, newUser._id as String);
+    generateTokenAndSetCookie(res, newUser._id as string);
     const { password: _, ...userWithoutPassword } = newUser.toObject();
 
     res.status(201).json({
@@ -61,8 +67,30 @@ export const login = async (req: Request, res: Response) => {
       res.status(401).json({ success: false, message: "Invalid Password" });
       return;
     }
-    generateTokenAndSetCookie(res, user._id as String);
-    res.status(200).json({ success: true, message: "Logged in successfully" });
+
+    switch (user.role) {
+      case "admin":
+        res.cookie("admin", "true", {
+          httpOnly: true,
+          sameSite: "strict",
+          maxAge: 3600000,
+          secure: process.env.NODE_ENV === "production",
+        });
+        break;
+      case "user":
+        generateTokenAndSetCookie(res, user._id as string);
+        res
+          .status(200)
+          .json({ success: true, message: "Logged in successfully" });
+      case "rider":
+        generateTokenAndSetCookie(res, user._id as string);
+        res
+          .status(200)
+          .json({ success: true, message: "Logged in successfully" });
+
+      default:
+        break;
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: `Server Error ${error}` });
